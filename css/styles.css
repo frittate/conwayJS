@@ -1,0 +1,13 @@
+body {
+    background-color: #eeeeee;
+}
+
+#canvas {
+    background-color: whitesmoke;
+    border: 1px solid black;
+}
+
+h1, h2{
+    text-align: center;
+}
+

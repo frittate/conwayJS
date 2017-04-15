@@ -30,7 +30,7 @@ let cellsArray = {
 
     generateColorFromAge: function(age){
         let rgbColor = age;
-        return '#' + ((1 << 24) + (rgbColor << 16) + (rgbColor << 8) + rgbColor).toString(16).slice(1);
+        let colorFromAge = '#' + ((1 << 24) + (rgbColor << 16) + (rgbColor << 8) + rgbColor).toString(16).slice(1);
     },
 
     generateCellArray: function(rows){
@@ -105,8 +105,8 @@ let cellsArray = {
             }
         }   
         }
-    for (var x = 1; x < this.cells.length - 1; x++) { //iterate through rows
-            for (var y = 1; y < this.cells.length - 1; y++) { //iterate through columns
+    for (var x = 0; x < this.cells.length - 1; x++) { //iterate through rows
+            for (var y = 0; y < this.cells.length - 1; y++) { //iterate through columns
         this.cells[x][y].alive = this.cells[x][y].aliveNew;
          }
     }
@@ -132,7 +132,7 @@ let handlers = {
     loopFrame: 0,
 
     initializeCells: function(){
-        cellsArray.generateCellArray(100);
+        cellsArray.generateCellArray(250);
         cellsArray.populateCellsArray();
         cellsArray.populateRandom();
         view.displayCells();
@@ -141,6 +141,8 @@ let handlers = {
     updateCells: function(){
         cellsArray.checkLivingConditions();
         view.displayCells();
+        view.counter++;
+        view.displayCounter();
         
     },
 
@@ -151,6 +153,15 @@ let handlers = {
         view.displayCounter();
         loopFrame = requestAnimationFrame(handlers.playLoop);
     },
+
+    disableBtn: function(){
+        playBtn = document.getElementById('playButton');
+        playBtn.className += ' disabled';
+    },
+
+    stopLoop: function(){
+        cancelAnimationFrame(loopFrame);
+    }
 };
 
 let view = {
@@ -161,10 +172,10 @@ let view = {
             for (var x = 1; x < cellsArray.cells.length; x++) { //iterate through rows
                 for (var y = 1; y < cellsArray.cells.length; y++) { //iterate through columns
                     if (cellsArray.cells[x][y].alive) {
-                        //canvasContext.fillStyle = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
-                        canvasContext.fillStyle = '#FF0000';
-                        //cellsArray.cells[x][y].color = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
-                        canvasContext.fillRect(x, y, 1, 1);
+                        canvasContext.fillStyle = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
+                        //canvasContext.fillStyle = '#FF0000';
+                        cellsArray.cells[x][y].color = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
+                        canvasContext.fillRect(x*2, y*2, 2, 2);
                     }
                 }
             };
@@ -175,56 +186,3 @@ let view = {
     },
     counter: 0,
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-for ( i=0; i < cellsArray.cells.length; i++){
-    console.log(cellsArray.cells[i].alive);
-
-}
-*/
-
-
-
-
-// function checkLivingConditions(){
-
-// }
-
-// function displayCells(){
-
-// }
-
-// function pauseSimulation(){
-
-// }
-
-// function skipFrameSimulation(){
-
-// }
-
-// function startSimulation(){
-
-// }
-
-
-
-// var c = document.getElementById(“myCanvas”);
-// var ctx = c.getContext(“2d”);
-// ctx.clearRect(0, 0, 400, 400); //this should clear the canvas ahead of each redraw
-// ctx.fillStyle = “#FF0000”;
-// ctx.fillRect(j, k, 1, 1);

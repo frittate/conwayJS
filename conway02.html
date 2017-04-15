@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conway</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    </head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12"><h1>Conway's Game of Life</h1></div>
+        <div class="col-sm-12"><h2>Version 0.2</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <canvas id="canvas" width="500" height="500" class="center-block"></canvas>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-primary btn-md" id="restartButton" onclick="handlers.initializeCells()">Restart</button>
+                <button type="button" class="btn btn-info btn-md" id="stepForwardButton" onclick="handlers.updateCells()">Step Forward</button>
+                <button type="button" class="btn btn-primary btn-md" id="playButton" onclick="handlers.playLoop();handlers.disableBtn()">Play</button>
+                <button type="button" class="btn btn-info btn-md" id="stopButton" onclick="handlers.stopLoop()">Stop</button>
+            </div>
+            <div class="col-sm-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p id="counter">0</p>
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/conway02.js"></script>
+    </body>
+    </html>
+

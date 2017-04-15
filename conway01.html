@@ -6,9 +6,20 @@
 </head>
 <body>
 
+<div>
+<canvas id="canvas" width="100" height="100"></canvas>
+</div>
 
-<canvas id="canvas" width="400" height="400"></canvas>
+<div>
+<button class="restartButton" onclick="handlers.initializeCells()">Restart</button>
+<button class="stepForwardButton" onclick="handlers.updateCells()">Step Forward</button>
+<button class="PlayButton" onclick="handlers.playLoop()">Play</button>
+<button class="StopButton" onclick="handlers.stopLoop()">Stop</button>
+</div>
 
+<div>
+    <p id="counter">0</p>
+</div>
 <script src="conway.js"></script>
 </body>
 </html>
