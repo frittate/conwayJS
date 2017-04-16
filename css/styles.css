@@ -3,11 +3,12 @@ body {
 }
 
 #canvas {
-    background-color: whitesmoke;
+    background-color: black;
     border: 1px solid black;
 }
 
-h1, h2{
+h1, h2, h3, h4, p{
     text-align: center;
 }
+
 

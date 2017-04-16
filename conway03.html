@@ -12,8 +12,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12"><h1>Conway's Game of Life</h1></div>
-        <div class="col-sm-12"><h2>Version 0.2</h2></div>
+        <div class="col-sm-12"><h2>Conway's Game of Life</h2></div>
+        <div class="col-sm-12"><h4>Version 0.3</h4></div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -25,19 +25,18 @@
     <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <button type="button" class="btn btn-primary btn-md" id="startStopButton" onclick="handlers.initializeCells()">Restart</button>
-                <button type="button" class="btn btn-info btn-md" id="stepForwardButton" onclick="handlers.updateCells()">Step Forward</button>
-                <button type="button" class="btn btn-primary btn-md" id="playButton" onclick="handlers.playLoop();handlers.disableBtn()">Play</button>
-                <button type="button" class="btn btn-info btn-md" id="stopButton" onclick="handlers.stopLoop()">Stop</button>
+                <button type="button" class="btn btn-primary btn-block" id="startStopButton" onclick="handlers.buttonLoop()">Play</button>
+                <button type="button" class="btn btn-info btn-block" id="stepForwardButton" onclick="handlers.updateCells()">Step Forward</button>
+                <button type="button" class="btn btn-info btn-block" id="resetButton" onclick="handlers.initializeCells()">Reset</button>
             </div>
             <div class="col-sm-4"></div>
     </div>
 
 
     </div>
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <!--<script src="js/jquery-3.2.1.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/conway02.js"></script>
+    <script src="js/conway03.js"></script>
     </body>
     </html>
 

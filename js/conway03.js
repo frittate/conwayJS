@@ -1,17 +1,3 @@
-
-
-//It should display cells
-// 100x100 pixels according to their state 
-//It should have a way to control the time 
-
-//Array of objects 
-
-//Object values:
-//alive true /false
-//Age integer while alive =true
-//Display method 
-
-//model view controller
 let cellsArray = {
     cells: [],
 
@@ -29,8 +15,18 @@ let cellsArray = {
     },
 
     generateColorFromAge: function(age){
-        let rgbColor = age;
+        if (age < 2){
+            return '#dddddd';
+        } else if (age < 10) {
+            return '#0000ff';
+        } else if (age < 500) {
+            return '#ff0000';
+        } else {
+            return '#00ff00';
+        }
+       /* let rgbColor = age;
         let colorFromAge = '#' + ((1 << 24) + (rgbColor << 16) + (rgbColor << 8) + rgbColor).toString(16).slice(1);
+        return colorFromAge;*/
     },
 
     generateCellArray: function(rows){
@@ -61,9 +57,9 @@ let cellsArray = {
         for (var x = 1; x < this.cells.length - 1; x++) { //iterate through rows
             for (var y = 1; y < this.cells.length - 1; y++) { //iterate through columns
                 let totalCells = 0;
-                totalCells += this.cells[x -1][y - 1].alive ? 1 : 0;
-                totalCells += this.cells[x -1][y].alive ? 1 : 0;
-                totalCells += this.cells[x -1][y + 1].alive ? 1 : 0;
+                totalCells += this.cells[x - 1][y - 1].alive ? 1 : 0;
+                totalCells += this.cells[x - 1][y].alive ? 1 : 0;
+                totalCells += this.cells[x - 1][y + 1].alive ? 1 : 0;
 
                 totalCells += this.cells[x][y - 1].alive ? 1 : 0;
                 totalCells += this.cells[x][y + 1].alive ? 1 : 0;
@@ -132,10 +128,17 @@ let handlers = {
     loopFrame: 0,
 
     initializeCells: function(){
+        if (this.loopFrame){
+            cancelAnimationFrame(loopFrame);
+            view.changeButtonText('Play');
+        };
         cellsArray.generateCellArray(250);
         cellsArray.populateCellsArray();
         cellsArray.populateRandom();
         view.displayCells();
+        view.counter = 0;
+        view.init = true;
+
     },
 
     updateCells: function(){
@@ -143,37 +146,44 @@ let handlers = {
         view.displayCells();
         view.counter++;
         view.displayCounter();
-        
     },
 
-    playLoop: function(){
+    looper: function(){
         cellsArray.checkLivingConditions();
         view.displayCells();
         view.counter++;
         view.displayCounter();
-        loopFrame = requestAnimationFrame(handlers.playLoop);
+        //debugger;
+        this.loopFrame = requestAnimationFrame(handlers.looper);
     },
 
-    disableBtn: function(){
-        playBtn = document.getElementById('playButton');
-        playBtn.className += ' disabled';
+    buttonLoop: function(){
+        let buttonText = document.getElementById('startStopButton').textContent;
+        if (buttonText === 'Play'){
+            if (view.init === false){
+                this.initializeCells();
+                view.changeButtonText('Stop');
+                this.looper();
+            } else {
+                view.changeButtonText('Stop');
+                this.looper();
+            }
+        } else if (buttonText === 'Stop'){
+            cancelAnimationFrame(loopFrame);
+            view.changeButtonText('Play');
+        }        
     },
-
-    stopLoop: function(){
-        cancelAnimationFrame(loopFrame);
-    }
 };
 
 let view = {
     displayCells: function(){
-        let canvas = document.getElementById("canvas");
-        let canvasContext = canvas.getContext("2d");
+        let canvas = document.getElementById('canvas');
+        let canvasContext = canvas.getContext('2d');
         canvasContext.clearRect(0, 0, canvas.scrollWidth, canvas.scrollHeight); //this should clear the canvas ahead of each redraw
-            for (var x = 1; x < cellsArray.cells.length; x++) { //iterate through rows
-                for (var y = 1; y < cellsArray.cells.length; y++) { //iterate through columns
+            for (var x = 2; x < cellsArray.cells.length-1; x++) { //iterate through rows
+                for (var y = 2; y < cellsArray.cells.length-1; y++) { //iterate through columns
                     if (cellsArray.cells[x][y].alive) {
                         canvasContext.fillStyle = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
-                        //canvasContext.fillStyle = '#FF0000';
                         cellsArray.cells[x][y].color = cellsArray.generateColorFromAge(cellsArray.cells[x][y].age);
                         canvasContext.fillRect(x*2, y*2, 2, 2);
                     }
@@ -181,8 +191,18 @@ let view = {
             };
     }, 
 
+    changeButtonText: function(buttonText){
+        let button = document.getElementById('startStopButton');
+        button.textContent = buttonText;
+        return button;
+    },
+
     displayCounter: function(){
         document.getElementById("counter").textContent = 'Generation ' + this.counter;
     },
     counter: 0,
+    playing: false,
+    init: false,
 }
+
+
