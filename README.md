@@ -1,6 +1,6 @@
-#Conway's Game of LIFE
-##A learning simulation
-##Written in JavaScript (VanillaJS)
+# Conway's Game of LIFE
+## A learning simulation
+## Written in JavaScript (VanillaJS)
 
 1. This game will simulate a cellular automata, in this case visualized by a grid of cells.
 2. Each "turn", a new generation of cells is born, according to some very simple rules
